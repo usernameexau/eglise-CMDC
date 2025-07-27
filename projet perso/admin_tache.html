@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Suivi des Tâches des Utilisateurs</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+            padding: 30px;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .user-block {
+            background: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .user-block h3 {
+            margin-top: 0;
+            color: #007BFF;
+        }
+        
+        .task-item {
+            padding: 10px;
+            border-left: 4px solid #007BFF;
+            background: #f9f9f9;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .faite {
+            color: green;
+            font-weight: bold;
+        }
+        
+        .pas-faite {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>📋 Suivi des Tâches des Utilisateurs</h2>
+    <div id="suiviContainer"></div>
+
+    <script>
+        const container = document.getElementById("suiviContainer");
+        const toutesTaches = JSON.parse(localStorage.getItem("taches_globales")) || [];
+
+        if (toutesTaches.length === 0) {
+            container.innerHTML = "<p style='text-align:center;'>Aucune tâche enregistrée.</p>";
+        } else {
+            // Grouper par utilisateur
+            const parUtilisateur = {};
+
+            toutesTaches.forEach(t => {
+                if (!parUtilisateur[t.utilisateur]) {
+                    parUtilisateur[t.utilisateur] = [];
+                }
+                parUtilisateur[t.utilisateur].push(t);
+            });
+
+            for (const [utilisateur, taches] of Object.entries(parUtilisateur)) {
+                const block = document.createElement("div");
+                block.className = "user-block";
+
+                const nbFaites = taches.filter(t => t.faite).length;
+                const total = taches.length;
+
+                let html = `<h3>${utilisateur.toUpperCase()} – ${nbFaites}/${total} faite(s)</h3>`;
+
+                taches.forEach(t => {
+                    html += `
+            <div class="task-item">
+              <span><strong>${t.texte}</strong> – 🕒 ${t.heure}</span>
+              <span class="${t.faite ? 'faite' : 'pas-faite'}">
+                ${t.faite ? '✅ Faite' : '❌ Non faite'}
+              </span>
+            </div>
+          `;
+                });
+
+                block.innerHTML = html;
+                container.appendChild(block);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

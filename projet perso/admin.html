@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Panneau Administrateur</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            padding: 30px;
+        }
+        
+        h2 {
+            background-color: #081bee;
+            background-position: center;
+            border-radius: 12px auto;
+            padding: 30% auto;
+            color: #fff;
+            text-align: center;
+            margin: 10 auto;
+        }
+        
+        .form {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+        
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: #218838;
+        }
+        
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="admin_taches.html" style="display:inline-block; margin-top:20px; background:#007BFF; color:white; padding:10px 20px; border-radius:5px; text-decoration:none;">
+  📊 Voir le suivi des tâches
+</a>
+    <header style="background:#333; padding:10px;">
+        <nav style="max-width:900px; margin:auto; display:flex; gap:20px;">
+            <a href="code.html" style="color:white; text-decoration:none;">🔐 Connexion</a>
+            <a href="admin.html" style="color:white; text-decoration:none;">⚙️ Admin</a>
+            <a href="admin_taches.html" style="color:white; text-decoration:none;">📊 Suivi des tâches</a>
+        </nav>
+    </header>
+
+
+    <h2>BIENVENUE pasteur</h2>
+
+    <div class="form">
+        <label for="userSelect">Affecter à :</label>
+        <select id="userSelect">
+      <option value="jean">Jean</option>
+      <option value="sarah">Sarah</option>
+      <option value="gloire">Gloire</option>
+    </select>
+
+        <label for="task">Tâche :</label>
+        <input type="text" id="task" placeholder="Ex : Installer les chaises">
+
+        <label for="hour">Heure :</label>
+        <input type="datetime-local" id="hour">
+
+        <button onclick="assignTask()">Affecter la tâche</button>
+
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        function assignTask() {
+            const user = document.getElementById("userSelect").value;
+            const task = document.getElementById("task").value.trim();
+            const hour = document.getElementById("hour").value;
+            const message = document.getElementById("message");
+
+            if (task === "" || hour === "") {
+                message.textContent = "Remplis tous les champs !";
+                return;
+            }
+
+            const taskData = {
+                texte: task,
+                heure: hour,
+                faite: false
+            };
+
+            // Récupérer les anciennes tâches de cet utilisateur
+            const userTasks = JSON.parse(localStorage.getItem("tasks_" + user)) || [];
+
+            // Ajouter la nouvelle tâche
+            userTasks.push(taskData);
+
+            // Sauvegarder
+            localStorage.setItem("tasks_" + user, JSON.stringify(userTasks));
+
+            // Confirmation
+            message.textContent = "✅ Tâche affectée à " + user.charAt(0).toUpperCase() + user.slice(1);
+
+            // Réinitialiser
+            document.getElementById("task").value = "";
+            document.getElementById("hour").value = "";
+        }
+    </script>
+
+</body>
+
+</html>

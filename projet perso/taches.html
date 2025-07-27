@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mes Tâches</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            padding: 30px;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .tache {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid #007BFF;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .tache .info {
+            flex: 1;
+        }
+        
+        .heure {
+            color: gray;
+            font-size: 14px;
+        }
+        
+        .valide {
+            font-size: 24px;
+            color: green;
+            display: none;
+        }
+        
+        input[type="checkbox"] {
+            transform: scale(1.5);
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header style="background:#333; padding:10px;">
+        <nav style="max-width:900px; margin:auto; display:flex; gap:20px;">
+            <a href="code.html" style="color:white; text-decoration:none;">🔐 Connexion</a>
+            <a href="taches.html" style="color:white; text-decoration:none;">✅ Mes tâches</a>
+        </nav>
+    </header>
+
+
+    <h2>🗓️ Mes Tâches à Réaliser</h2>
+    <div id="tachesContainer"></div>
+
+    <script>
+        // Récupérer l’utilisateur connecté
+        const currentUser = JSON.parse(localStorage.getItem("loggedUser"));
+        const container = document.getElementById("tachesContainer");
+
+        if (!currentUser || currentUser.role !== "user") {
+            container.innerHTML = "<p style='color:red; text-align:center;'>Accès refusé. Vous devez être un utilisateur connecté.</p>";
+        } else {
+            const taskList = JSON.parse(localStorage.getItem("tasks_" + currentUser.username)) || [];
+
+            if (taskList.length === 0) {
+                container.innerHTML = "<p style='text-align:center;'>Aucune tâche pour l’instant 🙏</p>";
+            } else {
+                taskList.forEach((tache, index) => {
+                            const div = document.createElement("div");
+                            div.className = "tache";
+
+                            const content = `
+            <div class="info">
+              <strong>${tache.texte}</strong>
+              <div class="heure">🕒 ${tache.heure}</div>
+            </div>
+            <div>
+              <input type="checkbox" onchange="validerTache(this, ${index})" ${tache.faite ? 'checked' : ''}>
+              <span class="valide" style="${tache.faite ? 'display:inline' : 'display:none'}">✅</span>
+              ${tache.faite ? `<button onclick="supprimerTache(${tache.index})" style="margin-left:10px; background:#dc3545; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">🗑️ Supprimer</button>` : ''}
+            </div>
+          `;
+                    div.innerHTML = content;
+                    container.appendChild(div);
+                });
+            }
+        }
+
+        function validerTache(checkbox, index) {
+            const icone = checkbox.nextElementSibling;
+            const tasks = JSON.parse(localStorage.getItem("tasks_" + currentUser.username));
+
+            tasks[index].faite = checkbox.checked;
+            localStorage.setItem("tasks_" + currentUser.username, JSON.stringify(tasks));
+
+            icone.style.display = checkbox.checked ? "inline" : "none";
+        }
+        function supprimerTache(index) {
+         if (confirm("Tu es sûr de vouloir supprimer cette tâche ?")) {
+            let toutesTaches = JSON.parse(localStorage.getItem("admin.html")) || [];
+            toutesTaches.splice(index, 1);
+            localStorage.setItem("admin_taches.html", JSON.stringify(tasks));
+            location.reload();
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

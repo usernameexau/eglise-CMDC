@@ -1,0 +1,224 @@
+ header {
+     background-color: #081bee;
+     background-position: center;
+     border-radius: 12px;
+     padding: 30% auto;
+     color: #fff;
+     text-align: center;
+     margin: 10;
+ }
+ 
+ body {
+     font-family: Arial, sans-serif;
+     text-align: center;
+     margin: 20 auto;
+     background-color: #f0f0f3;
+     color: #333333;
+     background-image: url('vieux\ gama.png');
+     background-size: 25% auto;
+     background-repeat: no-repeat;
+     background-position: 11px 200px;
+ }
+ 
+ .choix-container {
+     display: flex;
+     justify-content: center;
+     gap: 30px;
+     flex-wrap: wrap;
+ }
+ 
+ .choix-bouton {
+     background-color: rgb(255, 255, 255);
+     border: 2px solid #081bee;
+     border-radius: 12px;
+     width: 199px;
+     padding: 20px;
+     cursor: pointer;
+     transition: transform 0.9s ease, box-shadow 0.9s ease;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     animation: fadeSlideUp 0.7s ease forwards;
+     opacity: 0;
+ }
+ 
+ .choix-bouton:hover {
+     transform: scale(1.09);
+     box-shadow: 0 10px 200px rgba(8, 8, 236, 0.5);
+     transition: transform 0.9s ease, box-shadow 0.9s ease;
+ }
+ 
+ .papa img {
+     background-repeat: no-repeat;
+     background-position: right;
+     background-size: 30px;
+     image-resolution: 200px;
+     image-orientation: 0deg;
+     border-image-width: 100px;
+     width: 10%;
+     border-radius: 10px;
+     animation: fadeSlideUp 0.7s ease forwards;
+ }
+ 
+ .choix-bouton img {
+     width: 100%;
+     height: 120px;
+     object-fit: cover;
+     border-radius: 8px;
+ }
+ 
+ .choix-bouton h3 {
+     margin: 10px 0 0;
+     font-size: 18px;
+     color: #333;
+ }
+ 
+ .section-cachee {
+     display: none;
+     margin-top: 40px;
+     padding: 20px;
+     background-color: #f0f0f0;
+     border-radius: 10px;
+ }
+ 
+ .connexion {
+     background-color: white;
+     padding: 30px;
+     border-radius: 10px;
+     box-shadow: 8 9 10px rgba(0, 0, 0, 0.2);
+     width: 30px;
+ }
+ 
+ .connexion h2 {
+     text-align: center;
+     margin-bottom: 20px;
+ }
+ 
+ footer {
+     background-color: bisque;
+     margin: 0;
+     width: 100% auto;
+     height: 100% auto;
+     text-decoration-color: #ccc;
+ }
+ 
+ .connexion input[type="text"],
+ .connexion input[type="password"] {
+     width: 100%;
+     padding: 10px;
+     margin: 8px 0;
+     border: 1px solid #ccc;
+     border-radius: 9px;
+ }
+ 
+ .connexion input[type="submit"] {
+     width: 100%;
+     padding: 10px;
+     background-color: #007BFF;
+     border: none;
+     color: white;
+     border-radius: 5px;
+     cursor: pointer;
+ }
+ 
+ .connexion input[type="submit"]:hover {
+     background-color: #0056b3;
+ }
+ 
+ .menu-icon {
+     font-size: 20px;
+     cursor: pointer;
+ }
+ /* SIDEBAR */
+ 
+ .sidebar {
+     height: 100%;
+     width: 90;
+     position: fixed;
+     top: 0;
+     right: 0;
+     background-color: #fefefe;
+     overflow-x: hidden;
+     transition: 0.5s;
+     padding-top: 60px;
+     box-shadow: 22px 0 50px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .sidebar form {
+     padding: 20px auto;
+ }
+ 
+ .sidebar input[type="text"],
+ .sidebar input[type="password"] {
+     width: 90%;
+     padding: 10px;
+     margin-bottom: 15px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+ }
+ 
+ .sidebar input[type="submit"] {
+     width: 90%;
+     padding: 10px;
+     background-color: #007BFF;
+     border: none;
+     color: white;
+     border-radius: 5px;
+     cursor: pointer;
+ }
+ 
+ .close-btn {
+     position: absolute;
+     top: 15px;
+     right: 20px;
+     font-size: 25px;
+     cursor: pointer;
+ }
+ 
+ .login-box {
+     background: white;
+     padding: 30px;
+     border-radius: 10px;
+     box-shadow: 0 0 90px rgba(0, 0, 0, 0.2);
+     width: 300px;
+ }
+ 
+ .login-box h2 {
+     text-align: center;
+     margin-bottom: 20px;
+ }
+ 
+ input {
+     width: 100%;
+     padding: 10px;
+     margin-top: 10px;
+ }
+ 
+ button {
+     width: 100%;
+     padding: 10px;
+     margin-top: 15px;
+     background-color: #007BFF;
+     color: white;
+     border: none;
+     cursor: pointer;
+ }
+ 
+ button:hover {
+     background-color: #0056b3;
+ }
+ 
+ .error {
+     color: red;
+     margin-top: 10px;
+     text-align: center;
+ }
+ 
+ @keyframes fadeSlideUp {
+     0% {
+         opacity: 4;
+         transform: translateY(20px);
+     }
+     100% {
+         opacity: 5;
+         transform: translateY(0);
+     }
+ }

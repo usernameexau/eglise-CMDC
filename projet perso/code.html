@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+
+
+</head>
+
+<body>
+    <header>
+        <h1>BIENVENUE AU SITE DE L'EGLISE CMDC</h1>
+        <P>JE SUIS DISCIPLE</P>
+        <span class="menu-icon" onclick="openSidebar()">&#9776;</span>
+        <button onclick="retourAnime()">🏠 Retour</button>
+
+
+    </header>
+    <h2>veuillez choisiir une secton</h2>
+
+    <div class="choix-container">
+        <div class="choix-bouton" onclick="afficher('debut')">
+            <img src="img logo.jpg" alt="debut">
+            <h3>biographie</h3>
+        </div>
+        <div class="choix-bouton" onclick="aficher('ann')">
+            <img src="img logo.jpg" alt="ann">
+            <h3>anniversaire de l'eglise</h3>
+        </div>
+
+        <div class="choix-bouton" onclick="afficher('service')">
+            <img src="img logo.jpg" alt="service">
+            <h3>service en cours</h3>
+        </div>
+    </div>
+
+    <div id="debut" class="section-cachee">
+        <h3>BIOGRAPHIE</h3>
+        <blockquote>
+            L'eglise CMDC vu le jour le 3 mars 2021 par la vision de Dieu donne a notre pere le pasteur GAMALIEL KIYO NGAMBAO a l'epoque qui etait juste un groupe d'interssecion appelle CPC(cours penal celeste) c'est finalement en 2022 que
+        </blockquote>
+    </div>
+
+    <div id="ann" class="section-cachee">
+        <h3>anniversaire de l'eglise</h3>
+        <blockquote>chaque annnee depuis maintenant 4 ans le temple de Dieu fete son anniversaire denome la fete des disciples au sein de son temple avec bien souvent notre invite le pastreur responsable de l'eglise ACK KOMBO le pasteur CHARLES MPOYI, un evenement
+            qui a lieu tous les 4 mars de chque annee
+        </blockquote>
+    </div>
+
+    <div id="service" class="section-cachee">
+        <h3>service en Cours</h3>
+        <blockquote>actuellement l'eglise est dans un sercice de fortes priere accompagnee de veille</blockquote>
+    </div>
+
+    </div>
+    <div id="mySidebar" class="sidebar">
+        <span class="close-btn" onclick="closeSidebar()">&times;</span>
+        <div class="login-box">
+            <h2>Connexion</h2>
+            <input type="text" id="username" placeholder="Nom d'utilisateur">
+            <input type="password" id="password" placeholder="Mot de passe">
+            <button onclick="login()">Se connecter</button>
+            <div class="error" id="errorMsg"></div>
+        </div>
+    </div>
+    <footer>
+        <h3>reference de l'eglise</h3>
+        <p>Adresse: 17 Rue komono talangai reference arret libanga ya talo SNDE(LCDE)</p>
+        <P>
+            <link href="https://web.facebook.com/profile.php?id=100081611751468" alt="facebook">
+        </P>
+        <p>&copy cmdc 2025</p>
+    </footer>
+
+    <script>
+        function afficher(id) {
+            document.querySelectorAll('.section-cachee').forEach(function(section) {
+                section.style.display = 'none';
+            });
+
+            document.getElementById(id).style.display = "block";
+        }
+
+        function retourAnime() {
+            setTimeout(() => {
+                window.location.href = "code.html";
+            }, 1500);
+        }
+
+        function openSidebar() {
+            document.getElementById("mySidebar").style.width = "250px";
+        }
+
+        function closeSidebar() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+        const users = [{
+            username: "pasteur",
+            password: "admin123",
+            role: "admin"
+        }, {
+            username: "bokassa justice",
+            password: "justicepass",
+            role: "user"
+        }, {
+            username: "eloge",
+            password: "elogepass",
+            role: "user"
+        }, {
+            username: "syntyche",
+            password: "syntychepass",
+            role: "user"
+        }];
+
+        function login() {
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const errorMsg = document.getElementById("errorMsg");
+
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                // Sauvegarde de l'utilisateur connecté (optionnel)
+                localStorage.setItem("loggedUser", JSON.stringify(user));
+
+                // Redirection selon le rôle
+                if (user.role === "admin") {
+                    window.location.href = "admin.html";
+                } else {
+                    window.location.href = "taches.html";
+                }
+            } else {
+                errorMsg.textContent = "Identifiants incorrects !";
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
